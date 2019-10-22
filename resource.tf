@@ -1,5 +1,5 @@
 resource "aws_instance" "apache_webserver_1"{
-	ami= "ami-02913db388613c3e1"
+	ami= "${var.ami}"
 	instance_type= "t2.micro"
 	user_data= "${file("serverInstallAndDeploy.sh")}"
 	key_name="test"
@@ -8,7 +8,7 @@ resource "aws_instance" "apache_webserver_1"{
   	}
 }
 resource "aws_instance" "apache_webserver_2"{
-        ami= "ami-02913db388613c3e1"
+        ami= "${var.ami}"
         instance_type= "t2.micro"
 	user_data= "${file("serverInstallAndDeploy.sh")}"
 	key_name="test"
@@ -17,8 +17,8 @@ resource "aws_instance" "apache_webserver_2"{
         }
 }
 resource "aws_instance" "nginxloadbalancer"{
-        #ami= "ami-0270f291a8a0f0d6b"
-	ami="ami-02913db388613c3e1"
+        #ami= "${var.ami}"
+	ami="${var.ami}"
         instance_type= "t2.micro"
 	key_name="test"
         user_data = "${data.template_file.init.rendered}"
